@@ -23,18 +23,33 @@ options=()
 install=
 changelog=
 source=("https://github.com/pelzlpj/${pkgname}/releases/download/release-${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        'mlgsl_sf.patch')
+    'associated_legendre.patch'
+    'caml__frame_undeclared.patch'
+    'ellint_d_sf3.patch'
+    'Makefile_in.patch')
 noextract=()
 md5sums=('1fd02e75549cca954cebbd13271ea7f5'
-         'e54c939635e1aec69f887297dcb3427a')
+         '90d6d12dc90f817c7b18e5dc065ff3c8'
+         'f4621a5a9ad6ae44a8b88bd2618b9890'
+         '5f2f31bcc7739ee313b4e67de52adaff'
+         '540d2305c5cdb24328966f0566bcc63d')
 sha1sums=('9786df20fb272fd36f87868bed04cab504602282'
-          'f497570215395340ea8899677d2e828e2a0822b2')
+          '8144c29af06eb2e8e58d652d58c69494b4bec3f9'
+          '70900a57240b740bc661c854290c30dd50a7299b'
+          '6a0f75d0df1f44cc45d7d46b6228b594ad51f3d7'
+          '8222ac186973419a359912acf9724692570256ad')
 sha256sums=('de557fc7f608c6cb1f44a965d3ae07fc6baf2b02a0d7994b89d6a0e0d87d3d6d'
-            '5647572b6cf3b7b12a7ae2727df65ee100f416e33e967e1a4ced62cba878a43e')
+            'abc2bd53a85ce80cc1c3eeec62719854a8ce3be7213a9a7c1d909c0f6ed0a96a'
+            '8983e40bb3a046eaf82e16c8af882f5b4f3146d228cb5bdfcc977e83032d4160'
+            '5cb9e463ce77740731f7bdee3ba591d89f7cef400ce2dbb20cc9a48563a869d5'
+            'ab02da769faf99159e7e5cbb81e0551adb0a91bdc46f7e6d88f83a7b45b828a6')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver/gsl"
-  patch mlgsl_sf.c $srcdir/mlgsl_sf.patch
+  cd "$srcdir/$pkgname-$pkgver"
+  patch -p1 -i $srcdir/associated_legendre.patch
+  patch -p1 -i $srcdir/caml__frame_undeclared.patch
+  patch -p1 -i $srcdir/ellint_d_sf3.patch
+  patch -p1 -i $srcdir/Makefile_in.patch
 }
 
 build() {
