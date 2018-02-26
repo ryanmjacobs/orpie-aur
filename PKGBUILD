@@ -55,7 +55,10 @@ prepare() {
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   ./configure --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc
-  make
+
+  n=`nproc`
+  [ -z "$n" ] && n=1
+  make -j"$n"
 }
 
 package() {
